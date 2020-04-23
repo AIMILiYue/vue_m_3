@@ -5,7 +5,8 @@ import store from './store'
 // vant组件
 import Vant from 'vant'
 import 'vant/lib/index.css'
-// 全局样式
+
+// 全局自定义样式
 import './styles/index.less'
 
 // 导入amfe-flexible  动态设置rem基准值
@@ -13,7 +14,6 @@ import 'amfe-flexible'
 
 Vue.config.productionTip = false
 
-// 注册vant组件
 Vue.use(Vant)
 
 new Vue({
