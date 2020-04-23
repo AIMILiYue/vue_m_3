@@ -24,22 +24,27 @@ export default {
   data() {
     return {
       user: {
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       }
     }
   },
   methods: {
     async onSubmit() {
       const user = this.user
+      this.$toast.loading({
+        message: '登录中...',
+        forbidClick: true,
+        duration: 0
+      })
       try {
         const res = await login(user)
-        console.log(res)
+        this.$toast.success('登录成功')
       } catch (error) {
         if (error.response.status === 400) {
-          console.log('手机号或验证码不正确')
+          this.$toast.fail('手机号或验证码不正确')
         } else {
-          console.log('登录失败，请稍候重试~')
+          this.$toast.fail('登录失败，请稍候重试')
         }
       }
     }
