@@ -8,6 +8,9 @@ import 'vant/lib/index.css'
 // 全局样式
 import './styles/index.less'
 
+// 导入amfe-flexible  动态设置rem基准值
+import 'amfe-flexible'
+
 Vue.config.productionTip = false
 
 // 注册vant组件
