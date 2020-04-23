@@ -2,10 +2,25 @@
   <div class="login-container">
     <van-nav-bar title="登录" class="page-nav-bar" />
     <van-form @submit="onSubmit">
-      <van-field v-model="user.mobile" name="用户名" placeholder="请输入手机号">
+      <van-field
+        v-model="user.mobile"
+        name="用户名"
+        placeholder="请输入手机号"
+        :rules="userFormRules.mobile"
+        type="digit"
+        maxlength="11"
+      >
         <i slot="left-icon" class="iconfont- iconshouji"></i>
       </van-field>
-      <van-field v-model="user.code" left-icon="smile-o" name="密码" placeholder="请输入验证码">
+      <van-field
+        v-model="user.code"
+        left-icon="smile-o"
+        name="密码"
+        placeholder="请输入验证码"
+        :rules="userFormRules.code"
+        type="digit"
+        maxlength="6"
+      >
         <i class="iconfont- iconyanzhengma" slot="left-icon"></i>
         <template #button>
           <van-button size="small" round type="default" class="sendBtn">发送验证码</van-button>
@@ -26,6 +41,16 @@ export default {
       user: {
         mobile: '13911111111',
         code: '246810'
+      },
+      userFormRules: {
+        mobile: [
+          { required: true, message: '请填写手机号' },
+          { pattern: /1[3|5|7|8]\d{9}/, message: '请填写正确的手机号' }
+        ],
+        code: [
+          { required: true, message: '请输入验证码' },
+          { pattern: /^\d{6}$/, message: '请填写正确的验证码' }
+        ]
       }
     }
   },
