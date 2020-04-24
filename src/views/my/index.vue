@@ -1,21 +1,20 @@
 <template>
   <div class="my-container">
-    <div class="header not-login">
-      <div class="login-btn" @click="$router.push('/login')">
-        <img class="mobile-img" src="~@/assets/mobile.png" alt />
-        <span class="text">登录 / 注册</span>
-      </div>
-    </div>
-    <div class="header user-info">
+    <!-- 用户登录后显示用户信息部分 -->
+    <div v-if="user" class="header user-info">
+      <!-- 头像、名称、编辑资料---上半部分 -->
       <div class="base-info">
+        <!-- 头像+昵称 -->
         <div class="left">
           <van-image round class="avatar" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
           <span class="name">大爷来玩呀</span>
         </div>
+        <!-- 编辑资料 -->
         <div class="right">
           <van-button round>编辑资料</van-button>
         </div>
       </div>
+      <!-- 数量统计部分---下半部分 -->
       <div class="data-stats">
         <div class="data-item">
           <span class="count">100</span>
@@ -35,7 +34,17 @@
         </div>
       </div>
     </div>
-    <van-grid :column-num="2" class="grid-nav" clickable>
+
+    <!-- 用户未登录显示部分 -->
+    <div v-else class="header not-login">
+      <div class="login-btn" @click="$router.push('/login')">
+        <img class="mobile-img" src="~@/assets/mobile.png" alt />
+        <span class="text">登录 / 注册</span>
+      </div>
+    </div>
+
+    <!-- 收藏、历史布局部分 -->
+    <van-grid :column-num="2" class="grid-nav mb-10" clickable>
       <van-grid-item class="grid-item">
         <i slot="icon" class="iconfont- iconshoucang"></i>
         <span class="text" slot="text">收藏</span>
@@ -45,14 +54,23 @@
         <span class="text" slot="text">历史</span>
       </van-grid-item>
     </van-grid>
+
+    <!-- cell单元格导航部分 -->
+    <van-cell title="消息通知" is-link url="/vant/mobile.html" />
+    <van-cell title="小智同学" is-link to="index" class="mb-10" />
+    <van-cell v-if="user" title="退出登录" to="index" class="logout" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: '',
   data() {
     return {}
+  },
+  computed: {
+    ...mapState(['user'])
   },
   methods: {}
 }
@@ -142,6 +160,13 @@ export default {
         font-size: 28px;
       }
     }
+  }
+  .logout {
+    text-align: center;
+    color: #d86262;
+  }
+  .mb-10 {
+    margin-bottom: 10px;
   }
 }
 </style>

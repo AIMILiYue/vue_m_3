@@ -16,7 +16,7 @@
       </van-tabbar-item>
       <van-tabbar-item icon="home-o" to="/my">
         <i slot="icon" class="iconfont- iconwode"></i>
-        我的
+        {{ $store.state.user ? '我的' : '未登录' }}
       </van-tabbar-item>
     </van-tabbar>
   </div>
