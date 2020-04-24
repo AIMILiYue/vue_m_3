@@ -58,7 +58,7 @@
     <!-- cell单元格导航部分 -->
     <van-cell title="消息通知" is-link url="/vant/mobile.html" />
     <van-cell title="小智同学" is-link to="index" class="mb-10" />
-    <van-cell v-if="user" title="退出登录" to="index" class="logout" />
+    <van-cell v-if="user" title="退出登录" class="logout" @click="logout" />
   </div>
 </template>
 
@@ -72,7 +72,22 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  methods: {}
+  methods: {
+    logout() {
+      this.$dialog
+        .confirm({
+          title: '退出确认',
+          message: '退出后不会删除本地数据，但不会进行数据同步，确定退出？'
+        })
+        .then(() => {
+          // on confirm
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
