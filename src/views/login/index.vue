@@ -62,7 +62,7 @@ export default {
           { pattern: /1[3|5|7|8]\d{9}/, message: '请填写正确的手机号' }
         ],
         code: [
-          { required: true, message: '请输入验证码' },
+          { required: true, message: '请输入验证码', trigger: 'onChange' },
           { pattern: /^\d{6}$/, message: '请填写正确的验证码' }
         ]
       },
@@ -80,7 +80,8 @@ export default {
         duration: 0
       })
       try {
-        const res = await login(user)
+        const { data } = await login(user)
+        this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
       } catch (error) {
         if (error.response.status === 400) {
