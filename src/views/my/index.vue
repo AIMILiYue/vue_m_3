@@ -6,8 +6,8 @@
       <div class="base-info">
         <!-- 头像+昵称 -->
         <div class="left">
-          <van-image round class="avatar" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-          <span class="name">大爷来玩呀</span>
+          <van-image round class="avatar" fit="cover" :src="userInfo.photo" />
+          <span class="name">{{ userInfo.name }}</span>
         </div>
         <!-- 编辑资料 -->
         <div class="right">
@@ -17,19 +17,19 @@
       <!-- 数量统计部分---下半部分 -->
       <div class="data-stats">
         <div class="data-item">
-          <span class="count">100</span>
+          <span class="count">{{ userInfo.art_count}}</span>
           <span class="text">头条</span>
         </div>
         <div class="data-item">
-          <span class="count">101</span>
+          <span class="count">{{ userInfo.follow_count}}</span>
           <span class="text">关注</span>
         </div>
         <div class="data-item">
-          <span class="count">100001</span>
+          <span class="count">{{ userInfo.fans_count}}</span>
           <span class="text">粉丝</span>
         </div>
         <div class="data-item">
-          <span class="count">9999999</span>
+          <span class="count">{{ userInfo.like_count}}</span>
           <span class="text">获赞</span>
         </div>
       </div>
@@ -64,10 +64,18 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getUserInfo } from '@/api/user'
 export default {
   name: '',
   data() {
-    return {}
+    return {
+      userInfo: {}
+    }
+  },
+  created() {
+    if (this.user) {
+      this.getUser()
+    }
   },
   computed: {
     ...mapState(['user'])
@@ -86,6 +94,14 @@ export default {
         .catch(() => {
           // on cancel
         })
+    },
+
+    /* 获取用户信息 */
+    async getUser() {
+      try {
+        const { data } = await getUserInfo()
+        this.userInfo = data.data
+      } catch (error) {}
     }
   }
 }

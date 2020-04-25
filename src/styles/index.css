@@ -86,3 +86,9 @@ body {
 .page-nav-bar .van-icon {
   color: #fff;
 }
+.page-nav-bar .van-icon.van-icon-search {
+  color: black;
+}
+.page-nav-bar .van-nav-bar__left {
+  width: 90%;
+}

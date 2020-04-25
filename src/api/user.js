@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-
+// import store from "@/store";
 /* 
 登录请求接口
 @params  
@@ -25,5 +25,13 @@ export const send = mobile => {
   return request({
     method: "GET",
     url: `/app/v1_0/sms/codes/${mobile}`
+  });
+};
+
+/* 获取用户信息 */
+export const getUserInfo = () => {
+  return request({
+    method: "GET",
+    url: "/app/v1_0/user"
   });
 };
